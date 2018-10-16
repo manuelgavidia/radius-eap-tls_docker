@@ -2,11 +2,20 @@ version: '2'
 services:
 
  freeradius:
-  image: "felipe/freeradius_eap"
+  image: "freeradius/test_eap"
   ports:
    - "1812:1812/udp"
-   - "1813:1813"
+   - "1813:1813/udp"
    - "18120:18120"
   volumes:
    - "./clients.conf:/etc/raddb/clients.conf"
-   - "./users:/etc/raddb/users"
+  networks:
+   mynet:
+    ipv4_address: 172.26.0.100
+
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.26.0.0/24

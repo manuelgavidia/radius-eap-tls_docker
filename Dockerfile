@@ -1,4 +1,4 @@
-From alpine:3.8
+FROM alpine:3.8 as build
 MAINTAINER Muhamed Avila <muhamed@cpqd.com.br>
 
 RUN apk update && apk upgrade
@@ -16,9 +16,7 @@ RUN apk add --update freeradius freeradius-eap openssl make freeradius-sqlite fr
 COPY default /etc/raddb/sites-enabled/default
 COPY eap /etc/raddb/mods-enabled/eap
 
-EXPOSE \
-    1812/udp \
-    1813/udp \
-    18120
+# EXPOSE 1812/udp 1813/udp 18120
 
+FROM build
 CMD ["radiusd", "-X"]
