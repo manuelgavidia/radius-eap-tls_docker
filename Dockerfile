@@ -16,6 +16,9 @@ RUN apk add --update freeradius freeradius-eap openssl make freeradius-sqlite fr
 COPY default /etc/raddb/sites-enabled/default
 COPY eap /etc/raddb/mods-enabled/eap
 
+RUN mkdir /certs-client && mv /etc/raddb/certs/client*.* /certs-client  && \
+    cp /etc/raddb/certs/ca.pem /certs-client/
+
 # EXPOSE 1812/udp 1813/udp 18120
 
 FROM build
