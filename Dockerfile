@@ -19,6 +19,13 @@ COPY eap /etc/raddb/mods-enabled/eap
 RUN mkdir /certs-client && mv /etc/raddb/certs/client*.* /certs-client  && \
     cp /etc/raddb/certs/ca.pem /certs-client/
 
+# Disable modules
+RUN cd /etc/raddb/mods-enabled && \
+    rm attr_filter chap digest mschap  ntlm_auth pap passwd
+
+RUN rm -rf /etc/raddb/sites-enabled/inner-tunnel /etc/raddb/mods-config/attr_filter
+
+
 # EXPOSE 1812/udp 1813/udp 18120
 
 FROM build
