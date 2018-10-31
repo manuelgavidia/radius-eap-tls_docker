@@ -1,7 +1,7 @@
 server default {
 listen {
 	type = auth
-	ipaddr = *
+	ipv6addr = ::
 	port = 0
 	limit {
 	      max_connections = 16

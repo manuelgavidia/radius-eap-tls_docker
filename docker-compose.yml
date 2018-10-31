@@ -1,21 +1,25 @@
-version: '2'
+version: '2.1'
 services:
 
  freeradius:
   image: "freeradius/test_eap"
   ports:
-   - "1812:1812/udp"
-   - "1813:1813/udp"
-   - "18120:18120"
+   - ":::1812:1812/udp"
+   - ":::1813:1813/udp"
+   - ":::18120:18120"
   volumes:
    - "./clients.conf:/etc/raddb/clients.conf"
   networks:
    mynet:
-    ipv4_address: 172.26.0.100
+    ipv6_address: 2001:3200:3200::20
 
 networks:
   mynet:
     driver: bridge
+    enable_ipv6: true
     ipam:
+      driver: default
       config:
-      - subnet: 172.26.0.0/24
+      - subnet: 2001:3200:3200::/64
+        gateway: 2001:3200:3200::1
+
