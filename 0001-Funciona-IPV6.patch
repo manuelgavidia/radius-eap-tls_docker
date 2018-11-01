@@ -1,0 +1,77 @@
+From 65ae3f4d988806c11163bfd7c8aed95b4d94faa8 Mon Sep 17 00:00:00 2001
+From: Manuel Gavidia <manuelg@cpqd.com.br>
+Date: Thu, 1 Nov 2018 14:54:28 -0300
+Subject: [PATCH] Funciona IPV6
+
+---
+ radius_example/Makefile         |  2 +-
+ radius_example/radius_example.c | 13 +++++++------
+ 2 files changed, 8 insertions(+), 7 deletions(-)
+
+diff --git a/radius_example/Makefile b/radius_example/Makefile
+index 883e2f2..be1ebe5 100644
+--- a/radius_example/Makefile
++++ b/radius_example/Makefile
+@@ -32,7 +32,7 @@ LLIBS = -lrt
+ ../src/radius/libradius.a:
+ 	$(MAKE) -C ../src/radius
+ 
+-#CLAGS += -DCONFIG_IPV6
++CLAGS += -DCONFIG_IPV6
+ 
+ OBJS_ex = radius_example.o
+ 
+diff --git a/radius_example/radius_example.c b/radius_example/radius_example.c
+index 8b0f475..32296fc 100644
+--- a/radius_example/radius_example.c
++++ b/radius_example/radius_example.c
+@@ -12,12 +12,13 @@
+ #include "eloop.h"
+ #include "radius/radius.h"
+ #include "radius/radius_client.h"
++#include <arpa/inet.h>
+ 
+ struct radius_ctx {
+ 	struct radius_client_data *radius;
+ 	struct hostapd_radius_servers conf;
+ 	u8 radius_identifier;
+-	struct in_addr own_ip_addr;
++	struct in6_addr own_ip_addr;
+ };
+ 
+ 
+@@ -79,8 +80,8 @@ static void start_example(void *eloop_ctx, void *timeout_ctx)
+ 		return;
+ 	}
+ 
+-	if (!radius_msg_add_attr(msg, RADIUS_ATTR_NAS_IP_ADDRESS,
+-				 (u8 *) &ctx->own_ip_addr, 4)) {
++	if (!radius_msg_add_attr(msg, RADIUS_ATTR_NAS_IPV6_ADDRESS,
++				 (u8 *) &ctx->own_ip_addr, 16)) {
+ 		printf("Could not add NAS-IP-Address\n");
+ 		radius_msg_free(msg);
+ 		return;
+@@ -102,7 +103,7 @@ int main(int argc, char *argv[])
+ 	hostapd_logger_register_cb(hostapd_logger_cb);
+ 
+ 	os_memset(&ctx, 0, sizeof(ctx));
+-	inet_aton("127.0.0.1", &ctx.own_ip_addr);
++	if (inet_pton(AF_INET6, "2001:3200:3200::1", &ctx.own_ip_addr) != 1) exit(1);
+ 
+ 	if (eloop_init()) {
+ 		printf("Failed to initialize event loop\n");
+@@ -113,9 +114,9 @@ int main(int argc, char *argv[])
+ 	if (srv == NULL)
+ 		return -1;
+ 
+-	srv->addr.af = AF_INET;
++	srv->addr.af = AF_INET6;
+ 	srv->port = 1812;
+-	if (hostapd_parse_ip_addr("127.0.0.1", &srv->addr) < 0) {
++	if (hostapd_parse_ip_addr("2001:3200:3200::20", &srv->addr) < 0) {
+ 		printf("Failed to parse IP address\n");
+ 		return -1;
+ 	}
+-- 
+2.7.4
+
