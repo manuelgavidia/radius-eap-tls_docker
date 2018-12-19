@@ -9,6 +9,7 @@ services:
    - "18120:18120"
   volumes:
    - "./clients.conf:/etc/raddb/clients.conf"
+   - "pki:/etc/raddb/certs:ro"
   networks:
    mynet:
     ipv4_address: 172.26.0.100
@@ -19,3 +20,7 @@ networks:
     ipam:
       config:
       - subnet: 172.26.0.0/24
+
+volumes:
+  pki:
+    external: true

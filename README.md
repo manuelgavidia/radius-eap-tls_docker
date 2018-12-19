@@ -1,12 +1,14 @@
-# Radis EAP-TLS
+# Radius EAP-TLS
 
 A lightweight and fast freeradius eap-tls server. This image is based on the minimalistic Alpine Linux.
 
 ## Build and launch
 
-  The following command will build, launch the container and copy to host the client certificate.
+The following command will build, launch the container, generate the certificates and copy them to host.
 
     ./launch.sh
+
+If in this step is created the PKI infrastructure, use "radius" for the client key or change the password in eapool_template.conf
 
 ## Test with eapol_test
 
