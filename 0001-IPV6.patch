@@ -1,12 +1,13 @@
-From 65ae3f4d988806c11163bfd7c8aed95b4d94faa8 Mon Sep 17 00:00:00 2001
+From 92c8adb76d24ee9d81eb19495944cf6211cbb053 Mon Sep 17 00:00:00 2001
 From: Manuel Gavidia <manuelg@cpqd.com.br>
-Date: Thu, 1 Nov 2018 14:54:28 -0300
-Subject: [PATCH] Funciona IPV6
+Date: Fri, 21 Dec 2018 09:45:20 -0200
+Subject: [PATCH] IPV6 patch
 
 ---
  radius_example/Makefile         |  2 +-
  radius_example/radius_example.c | 13 +++++++------
- 2 files changed, 8 insertions(+), 7 deletions(-)
+ wpa_supplicant/.config          |  2 ++
+ 3 files changed, 10 insertions(+), 7 deletions(-)
 
 diff --git a/radius_example/Makefile b/radius_example/Makefile
 index 883e2f2..be1ebe5 100644
@@ -72,6 +73,16 @@ index 8b0f475..32296fc 100644
  		printf("Failed to parse IP address\n");
  		return -1;
  	}
+diff --git a/wpa_supplicant/.config b/wpa_supplicant/.config
+index ee41c4d..7b35f96 100644
+--- a/wpa_supplicant/.config
++++ b/wpa_supplicant/.config
+@@ -593,3 +593,5 @@ CONFIG_INTERNAL_LIBTOMMATH_FAST=y
+ # Opportunistic Wireless Encryption (OWE)
+ # Experimental implementation of draft-harkins-owe-07.txt
+ #CONFIG_OWE=y
++
++CONFIG_IPV6=y
 -- 
 2.7.4
 

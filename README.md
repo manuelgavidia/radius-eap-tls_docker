@@ -18,6 +18,8 @@ If in this step is created the PKI infrastructure, use "radius" for the client k
     cp defconfig .config
     make eapol_test
 
-### Run the test
+note: if you want the IPV6 version apply [001-IPV6.patch](001-IPV6.patch) first to hostap code.
 
-    ./hostap/wpa_supplicant/eapol_test -c test.conf -a 172.26.0.100 -s whatever
+### Run the test (IPV4)
+
+    ./hostap/wpa_supplicant/eapol_test -c test.conf -a 172.26.0.100 -s radius
