@@ -1,9 +1,11 @@
-FROM alpine:edge as build
+FROM alpine:3.8 as build
 MAINTAINER Manuel Gavidia <manuelg@cpqd.com.br>
 
-RUN apk update && apk upgrade
+RUN echo '@edge http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories
 
-RUN apk add --no-cache --update freeradius freeradius-eap openssl && \
+RUN echo '@edgecommunity http://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories
+
+RUN apk add --update --no-cache freeradius freeradius-eap openssl@edge && \
     chgrp radius  /usr/sbin/radiusd && chmod g+rwx /usr/sbin/radiusd
 
 COPY default /etc/raddb/sites-enabled/default

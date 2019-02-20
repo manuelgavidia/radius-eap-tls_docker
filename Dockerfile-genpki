@@ -1,0 +1,11 @@
+FROM manuelgavidia/radius-tls-eap
+
+MAINTAINER Manuel Gavidia <manuelg@cpqd.com.br>
+
+VOLUME /etc/raddb/certs
+
+COPY openssl.cnf /etc/raddb/certs
+
+COPY gen-pki.sh .
+
+CMD ["./gen-pki.sh", "/etc/raddb/certs"]

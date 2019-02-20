@@ -1,14 +1,16 @@
 # Radius EAP-TLS
 
-A lightweight and fast freeradius eap-tls server. This image is based on the minimalistic Alpine Linux.
+A lightweight and fast freeradius eap-tls server to test WISUN authentication.
 
-## Build and launch
+This image is based on the minimalistic Alpine Linux.
 
-The following command will build, launch the container, generate the certificates and copy them to host.
+## Build
 
-    ./launch.sh
+The following command will build the container, generate the certificates volume and copy them to host.
 
-If in this step is created the PKI infrastructure, use "radius" for the client key or change the password in eapool_template.conf
+    ./build.sh
+
+This step creates the PKI infrastructure, keys are generated without password.
 
 ## Test with eapol_test
 
@@ -20,6 +22,6 @@ If in this step is created the PKI infrastructure, use "radius" for the client k
 
 note: if you want the IPV6 version apply [001-IPV6.patch](001-IPV6.patch) first to hostap code.
 
-### Run the test (IPV4)
+### Run the test (IPV6)
 
-    ./hostap/wpa_supplicant/eapol_test -c test.conf -a 172.26.0.100 -s radius
+    ./hostap/wpa_supplicant/eapol_test -c test.conf -a 2001:3200:3200::20 -s test

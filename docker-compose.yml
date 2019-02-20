@@ -2,11 +2,16 @@ version: '2.1'
 services:
 
  freeradius:
-  image: "freeradius/test_eap"
+  image: "manuelgavidia/radius-tls-eap"
   ports:
    - ":::1812:1812/udp"
    - ":::1813:1813/udp"
    - ":::18120:18120"
+
+  environment:
+   - CLIENT_SECRET=test
+   - PRIVATE_KEY_PASSWORD=test
+
   volumes:
    - "./clients.conf:/etc/raddb/clients.conf"
    - "pki:/etc/raddb/certs:ro"
