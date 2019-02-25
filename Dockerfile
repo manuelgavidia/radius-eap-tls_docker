@@ -21,7 +21,13 @@ RUN rm -rf /etc/raddb/sites-enabled/inner-tunnel /etc/raddb/mods-config/attr_fil
 
 RUN sed -i '/allow_vulnerable_openssl = no/ c allow_vulnerable_openssl = yes' /etc/raddb/radiusd.conf
 
-VOLUME /etc/raddb/certs
+COPY clients.conf /etc/raddb/clients.conf
+
+COPY openssl.cnf /etc/raddb/certs
+
+COPY gen-pki.sh .
+
+RUN ./gen-pki.sh /etc/raddb/certs
 
 FROM build
 CMD ["radiusd", "-X"]

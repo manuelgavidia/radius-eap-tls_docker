@@ -12,9 +12,6 @@ services:
    - CLIENT_SECRET=test
    - PRIVATE_KEY_PASSWORD=test
 
-  volumes:
-   - "./clients.conf:/etc/raddb/clients.conf"
-   - "pki:/etc/raddb/certs:ro"
   networks:
    mynet:
     ipv6_address: 2001:3200:3200::20
@@ -28,8 +25,3 @@ networks:
       config:
       - subnet: 2001:3200:3200::/64
         gateway: 2001:3200:3200::1
-
-
-volumes:
-  pki:
-    external: true
