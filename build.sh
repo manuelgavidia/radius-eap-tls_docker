@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Build containers
-docker build -t manuelgavidia/radius-tls-eap .
+docker build -t manuelgavidia/freeradius_eap_tls .
 
 # Get certs
 rm -rf certs
-id=$(docker create --rm manuelgavidia/radius-tls-eap)
+id=$(docker create --rm manuelgavidia/freeradius_eap_tls)
 docker cp ${id}:/etc/raddb/certs/ certs
 docker rm ${id}
 

@@ -9,16 +9,13 @@ eap {
 		private_key_file = ${certdir}/private/serverkey.pem
 		certificate_file = ${certdir}/servercert.pem
 		ca_file = ${cadir}/cacert.pem
-		random_file = /dev/random
 		ca_path = ${cadir}
-		cipher_list = "DEFAULT"
+		cipher_list = ECDHE-ECDSA-AES128-CCM8
 		cipher_server_preference = no
 		ecdh_curve = "prime256v1"
 		cache {
 			enable = no
 			lifetime = 24 # hours
-			name = "EAP-TLS module"
-			persist_dir = "${logdir}/tlscache"
 		}
 		verify {
 		}
