@@ -8,7 +8,7 @@ cd ${CA_DIR}
 
 create_cert() {
   local CA_EXTRA=""
-  [ "${1}" = "ca" ] && CA_EXTRA="-selfsign"
+  [ "${1}" = "ca" ] && CA_EXTRA="-selfsign -extensions v3_ca"
 
   openssl rand -hex 16 > ${CA_DIR}/serial
   openssl ecparam -genkey -name secp256r1 -out ${CA_DIR}/private/${1}key.pem
