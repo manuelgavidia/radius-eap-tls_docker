@@ -6,9 +6,9 @@ eap {
 	max_sessions = ${max_requests}
 	tls-config tls-common {
 		private_key_password = radius
-		private_key_file = ${certdir}/private/serverkey.pem
-		certificate_file = ${certdir}/servercert.pem
-		ca_file = ${cadir}/cacert.pem
+		private_key_file = ${certdir}/private/server.key.pem
+		certificate_file = ${certdir}/server-chain.pem
+		ca_file = ${cadir}/ca.crt.pem
 		ca_path = ${cadir}
 		cipher_list = ECDHE-ECDSA-AES128-CCM8
 		cipher_server_preference = no

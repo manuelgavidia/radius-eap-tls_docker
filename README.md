@@ -4,6 +4,8 @@ A lightweight and fast freeradius eap-tls server to test WISUN authentication.
 
 This image is based on the minimalistic Alpine Linux.
 
+When run the image creates a PKI infrastructure with two 4 depth certificates chains. One for the client and one for the server certificate. All certificates are DEVID certificates with exception of the CA.
+
 ## Build
 
 The following command will build the container, generate the certificates, copy them to host and generate the eapol_test configuration file.
